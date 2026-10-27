@@ -66,8 +66,9 @@ never goes on the open list. State it to yourself before every decision (METHODO
 
 00. INTAKE: if there is no `GOAL.md` yet, take the problem from the user's first prompt or from the
     spec file they point at (any .md; `templates/PROBLEM_SPEC.md` shows the shape). Write `GOAL.md` and
-    the first items of `LEDGER.md` from it, state them back in a few plain lines, and go on. Nothing
-    else is required of the user (METHODOLOGY 7.21a).
+    the first items of `LEDGER.md` from it (copy the skeletons from `templates/`), put a short project
+    name in this file's title line, state the goal back in a few plain lines, and go on. Nothing else
+    is required of the user (METHODOLOGY 7.21a).
 0. If `RESOURCES.md` is missing or untouched, ask in ONE message only the questions that apply, each
    with its default: how many agents may run at once including you (default 1); whether an API key
    exists for parallel lanes (default no); if spare cores or a GPU are detected, whether you may use

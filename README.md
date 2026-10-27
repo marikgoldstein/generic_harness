@@ -8,9 +8,15 @@ pair of eyes, and report honestly.
 
 ## How to start
 
-Put `CLAUDE.md`, `AUTONOMY.md`, `METHODOLOGY.md`, `SELF_CHECK.md` and `RESOURCES.md` in your project
-folder, start Claude Code there, and either type your problem or point it at a problem file (any
-`.md`; `templates/PROBLEM_SPEC.md` shows the shape). It writes the goal and the first items and goes.
+```bash
+git clone https://github.com/marikgoldstein/generic_harness.git
+cd generic_harness
+claude
+```
+
+Then type your problem, or point it at a problem file (`read problem.md`; any `.md` works,
+`templates/PROBLEM_SPEC.md` shows the shape). It writes the goal and the first items and goes.
+For an existing project instead: `bash install.sh /path/to/project`, then `cd` there and `claude`.
 
 It assumes minimal resources: loosely one concurrent local agent at most, no API keys, no heavy local
 compute, no scheduler, no chat channel, nothing deleted. "Loosely one" means you may see more than one
