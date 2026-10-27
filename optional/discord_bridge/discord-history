@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+"""discord-history: dump the last N hours of the channel of $DISCORD_ROUTE as plain text, oldest first.
+
+    discord-history [--hours 24] [--out FILE]
+
+Reads the same secrets file as discord-notify ($DISCORD_ENV_FILE); never prints the token. Bot posts are
+kept and labelled so the dump is the full two-way record. Standard library only.
+"""
+import argparse
+import json
+import os
+import sys
+import time
+import urllib.request
+from datetime import datetime, timedelta, timezone
+
+ENV = os.environ.get("DISCORD_ENV_FILE") or os.path.expanduser("~/.config/harness/discord.env")
+
+
+def load_env():
+    cfg = {}
+    with open(ENV) as f:
+        for line in f:
+            line = line.strip()
+            if "=" in line and not line.startswith("#"):
+                k, v = line.split("=", 1)
+                cfg[k.strip()] = v.strip().strip('"').strip("'")
+    return cfg
+
+
+def channel(cfg):
+    route = os.environ.get("DISCORD_ROUTE", "").strip()
+    cid = cfg.get("DISCORD_CHANNEL_ID_" + route.upper()) if route else None
+    if not cid:
+        sys.exit(f"discord-history: DISCORD_ROUTE={route!r} has no DISCORD_CHANNEL_ID_{route.upper()} in the secrets file")
+    return cid
+
+
+def api(path, token):
+    req = urllib.request.Request(f"https://discord.com/api/v10{path}",
+                                 headers={"Authorization": f"Bot {token}", "User-Agent": "harness-bridge (history)"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.loads(r.read())
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--hours", type=float, default=24)
+    ap.add_argument("--out", default=None)
+    a = ap.parse_args()
+    cfg = load_env()
+    tok, ch = cfg["DISCORD_BOT_TOKEN"], channel(cfg)
+    since = datetime.now(timezone.utc) - timedelta(hours=a.hours)
+    msgs, before = [], None
+    while True:
+        q = f"/channels/{ch}/messages?limit=100" + (f"&before={before}" if before else "")
+        page = api(q, tok)
+        if not page:
+            break
+        keep = [m for m in page if datetime.fromisoformat(m["timestamp"]) >= since]
+        msgs.extend(keep)
+        if len(keep) < len(page):
+            break
+        before = page[-1]["id"]
+        time.sleep(0.5)
+    msgs.sort(key=lambda m: m["timestamp"])
+    out = open(a.out, "x") if a.out else sys.stdout
+    for m in msgs:
+        ts = m["timestamp"][:16].replace("T", " ")
+        who = m["author"]["username"] + (" [bot]" if m["author"].get("bot") else "")
+        text = m.get("content", "")
+        for att in m.get("attachments", []):
+            text += f" [attachment: {att.get('filename')}]"
+        print(f"--- {ts}Z {who}\n{text}\n", file=out)
+    print(f"{len(msgs)} messages since {since.isoformat(timespec='minutes')}", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()

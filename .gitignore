@@ -1,0 +1,12 @@
+# local configuration and secrets: never committed
+tools/harness.env
+*.env
+.env*
+**/discord.env
+# runtime
+__pycache__/
+*.pyc
+scratch/
+lanes/
+*.log
+.DS_Store

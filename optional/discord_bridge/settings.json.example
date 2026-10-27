@@ -1,0 +1,31 @@
+{
+  "env": {
+    "HARNESS_ROOT": "/path/to/your/project/lead",
+    "DISCORD_ROUTE": "main",
+    "DISCORD_ENV_FILE": "/home/you/.config/harness/discord.env",
+    "AGENT_LABEL": "Claude",
+    "USER_LABEL": "You"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/path/to/your/project/lead/optional/discord_bridge/hooks/stop-post-reply.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/path/to/your/project/lead/optional/discord_bridge/hooks/echo-user-prompt.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

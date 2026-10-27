@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+"""discord-notify: post a message to the Discord channel of $DISCORD_ROUTE through the bot API.
+
+  echo "message" | discord-notify
+  discord-notify "message"
+  discord-notify --file plot.png "caption"
+
+Secrets: $DISCORD_ENV_FILE (default ~/.config/harness/discord.env, mode 600), lines
+    DISCORD_BOT_TOKEN=...
+    DISCORD_CHANNEL_ID_<ROUTE>=...        (one per route; ROUTE upper-cased)
+A route with no channel id is an error, never a fallback. Messages over the limit are split on line
+boundaries. The speaker label is "**$AGENT_LABEL:**" (default "Claude") unless the text already starts
+with a label. Standard library only. Never prints the token.
+"""
+import json
+import os
+import sys
+import time
+import urllib.request
+
+ENV = os.environ.get("DISCORD_ENV_FILE") or os.path.expanduser("~/.config/harness/discord.env")
+LIMIT = 1900
+AGENT_LABEL = os.environ.get("AGENT_LABEL", "Claude")
+USER_LABEL = os.environ.get("USER_LABEL", "User")
+
+
+def load_env():
+    cfg = {}
+    try:
+        with open(ENV) as f:
+            for line in f:
+                line = line.strip()
+                if "=" in line and not line.startswith("#"):
+                    k, v = line.split("=", 1)
+                    cfg[k.strip()] = v.strip().strip('"').strip("'")
+    except FileNotFoundError:
+        sys.exit(f"discord-notify: no secrets file at {ENV}")
+    return cfg
+
+
+def channel(cfg):
+    route = os.environ.get("DISCORD_ROUTE", "").strip()
+    if not route:
+        sys.exit("discord-notify: DISCORD_ROUTE is not set")
+    cid = cfg.get("DISCORD_CHANNEL_ID_" + route.upper())
+    if not cid:
+        sys.exit(f"discord-notify: DISCORD_ROUTE={route} but the secrets file has no DISCORD_CHANNEL_ID_{route.upper()}")
+    return cid
+
+
+def chunks(text):
+    out, cur = [], ""
+    for line in text.split("\n"):
+        while len(line) > LIMIT:
+            out.append(line[:LIMIT])
+            line = line[LIMIT:]
+        if len(cur) + len(line) + 1 > LIMIT:
+            out.append(cur)
+            cur = line
+        else:
+            cur = f"{cur}\n{line}" if cur else line
+    if cur:
+        out.append(cur)
+    return out
+
+
+def post(url, payload, headers):
+    req = urllib.request.Request(url, data=json.dumps(payload).encode(),
+                                 headers={"Content-Type": "application/json",
+                                          "User-Agent": "harness-bridge", **headers})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        r.read()
+
+
+def post_file(url, content, path, headers):
+    import uuid
+    boundary = "----harness" + uuid.uuid4().hex
+    name = os.path.basename(path)
+    with open(path, "rb") as f:
+        data = f.read()
+    ctype = "image/png" if name.lower().endswith(".png") else "application/octet-stream"
+    body = (f"--{boundary}\r\nContent-Disposition: form-data; name=\"payload_json\"\r\n"
+            f"Content-Type: application/json\r\n\r\n").encode()
+    body += json.dumps({"content": content, "attachments": [{"id": 0, "filename": name}]}).encode()
+    body += (f"\r\n--{boundary}\r\nContent-Disposition: form-data; name=\"files[0]\"; filename=\"{name}\"\r\n"
+             f"Content-Type: {ctype}\r\n\r\n").encode()
+    body += data + f"\r\n--{boundary}--\r\n".encode()
+    req = urllib.request.Request(url, data=body, headers={
+        "Content-Type": f"multipart/form-data; boundary={boundary}",
+        "User-Agent": "harness-bridge", **headers})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        r.read()
+
+
+def labelled(text):
+    labels = (f"**{AGENT_LABEL}:**", f"**{USER_LABEL}:**", f"{USER_LABEL}:")
+    return text if text.startswith(labels) else f"**{AGENT_LABEL}:** {text}"
+
+
+def main():
+    args = sys.argv[1:]
+    fpath = None
+    if "--file" in args:
+        i = args.index("--file")
+        fpath = args[i + 1]
+        args = args[:i] + args[i + 2:]
+    text = (args[0] if args else sys.stdin.read()).strip()
+    if not text and not fpath:
+        return
+    cfg = load_env()
+    tok, chan = cfg.get("DISCORD_BOT_TOKEN"), channel(cfg)
+    if not tok:
+        sys.exit("discord-notify: the secrets file has no DISCORD_BOT_TOKEN")
+    url = f"https://discord.com/api/v10/channels/{chan}/messages"
+    auth = {"Authorization": f"Bot {tok}"}
+    if fpath:
+        post_file(url, labelled(text)[:LIMIT], fpath, auth)
+        return
+    for i, c in enumerate(chunks(labelled(text))):
+        if i:
+            time.sleep(0.6)
+        post(url, {"content": c}, auth)
+
+
+if __name__ == "__main__":
+    main()
