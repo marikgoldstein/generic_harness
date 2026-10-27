@@ -12,7 +12,7 @@ REVIEW_MODEL: <same>
 EFFORT: max
 OUTPUT_CAP: default
 
-MAX_CONCURRENT_AGENTS: 1            # the main agent alone: you are owner, prover, reviewer and coordinator in turn
+MAX_CONCURRENT_AGENTS: 1            # the main agent alone: you are owner, prover, reviewer and coordinator in turn; a blank-context helper you wait on is fine (8.2)
 LANES_PER_PIECE: 0
 LANES_PER_BIG_ITEM: 0
 API_CONCURRENT_LANES: 0
@@ -49,7 +49,7 @@ ONBOARDING_V1_AT: n/a
 
 # What changes in the method with this profile:
 # - "lane" means a fresh pass by you with the task written out first (METHODOLOGY 4, preamble).
-# - "pair" means two separate passes in fresh context, A before B, B without A's notes (5.1).
+# - "pair" means a blank-context refuter you spawn and wait on, then a fresh rebuild; or two separate passes by you, A before B, B without A's notes (5.1, 8.2).
 # - "the level never decays" means: every open piece has a NAMED next route in the ledger at all times (3.11).
 # - the status is a block you write in the terminal; the self-check runs before it (7.12, 7.14).
 # - everything about memos, TO RESUME and onboarding applies to you (9.1, 9.10).

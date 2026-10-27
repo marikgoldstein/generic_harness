@@ -217,8 +217,9 @@ checks of a claimed bound, quick derivations, handing results to the owner as in
 ## 4. Parallel provers and lanes
 
 (Applies when LANES_PER_PIECE > 0, i.e. API keys or spare subagents exist. In the smallest profile,
-read "lane" as "one fresh pass by you with a fresh context": write the task line as if for a lane,
-then execute it yourself.)
+read "lane" as "a blank-context subagent you spawn and wait on, or one fresh pass by you": write the
+task line as if for a lane, then run it that way. Waiting on one helper keeps working concurrency at
+one (8.2).)
 
 4.1 POOL FORMAT: one lane = one final statement to prove exactly as written, with the pinned object,
 the consumer line, the scale and quantifiers, the needed definitions attached as text (not pointers),
@@ -278,8 +279,9 @@ later results go as a separate addendum.
 
 5.1 Every load-bearing text gets a PAIR of REVIEW_LENSES independent lenses: lens A tries to break it;
 lens B reconstructs it without seeing A. Both quote the consumer line and check that the closing
-statement matches it. (Fallback with one agent: two separate fresh-context passes, A then B, each
-without the other's notes; with subagents: two fresh subagents.)
+statement matches it. (Fallback at a cap of 1: a blank-context subagent as the lens while you wait,
+one lens at a time, or two separate fresh-context passes by you, A then B, each without the other's
+notes; with subagents: two fresh subagents.)
 5.2 VERDICT WORDS: APPROVED / APPROVED_WITH_MINOR / NOT APPROVED, with blocking items numbered and a
 "required for approval" list; the lens classes EACH blocking item CLERICAL or MATHEMATICAL. Lens
 vocabulary stays inside the review files.
@@ -492,8 +494,13 @@ quietly running below what the user would have allowed.)
 resource and go to owners, dedicated provers, the round's coordinator and closers; parallel breadth
 goes to lanes where lanes exist. Resources are printed per open item in every status ("local n / lanes
 m"); an open item or open-mathematics input at zero is flagged and staffed the same turn.
-8.2 MAX_CONCURRENT_AGENTS is soft in the transient sense: an overshoot by one or a few while a hand-over or
-respawn executes is fine; the steady count is what the cap bounds. The user may change the cap at any
+8.2 MAX_CONCURRENT_AGENTS counts agents WORKING at once, including the lead, and is soft in two mild
+ways. (a) Transient: an overshoot by one or a few while a hand-over or respawn executes is fine; the
+steady count is what the cap bounds. (b) Blank-context helpers: even at a cap of 1 the lead may spawn
+a subagent with no memory of the proof (a review lens, a refuter, a fresh reader, an independent
+check) and WAIT for it instead of working alongside it; working concurrency stays one and the method
+keeps its fresh-context prover/refuter separation (5.1). What the cap forbids is several agents
+cranking at once beyond it. The user may change the cap at any
 time (e.g. "cap 4"); record each change with its time.
 8.3 Holding and watching roles (a text held with nothing owed; a job watched for hours) are stood down
 with a clean hand-back and a RESPAWN TRIGGER in the onboarding (the exact file or landing that

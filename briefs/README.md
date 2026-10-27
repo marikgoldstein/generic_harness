@@ -1,6 +1,6 @@
 # briefs/: how agents are spawned
 
-A BRIEF is the spawn prompt of a subagent. In the single-agent profile (MAX_CONCURRENT_AGENTS = 1) it is the
+A BRIEF is the spawn prompt of a subagent. In the single-agent profile (MAX_CONCURRENT_AGENTS = 1) it is the prompt of a blank-context helper you spawn and wait on, or the
 task you write for yourself before a fresh pass: write it out in full, then execute it. Either way the
 brief is a file on disk under `lead/briefs/<ROLE>_<item>_<HHMM>.md`, written from the template here,
 never pasted from an older brief (METHODOLOGY 6.11).

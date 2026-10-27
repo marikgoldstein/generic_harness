@@ -83,8 +83,8 @@ method needs more than one agent to be meaningful.
 |---|---|---|---|
 | lead | you, between items | the main session | the main session |
 | owner of an item | the hat you wear while on that item | one persistent subagent per open item | same |
-| prove lanes on a piece | fresh passes by you, task written out first, one route per pass | spare subagents when the cap allows | `LANES_PER_PIECE` API lanes, refilled on landing |
-| review pair | two fresh-context passes: A (break it), then B (rebuild) without A's notes | two fresh subagents | two API lanes (A, B); local reviewers on the assembled argument |
+| prove lanes on a piece | a blank-context helper you spawn and wait on, or fresh passes by you, task written out first, one route per pass | spare subagents when the cap allows | `LANES_PER_PIECE` API lanes, refilled on landing |
+| review pair | a blank-context refuter you wait on (concurrency stays one), then a fresh rebuild; or two fresh passes by you, A then B without A's notes | two fresh subagents | two API lanes (A, B); local reviewers on the assembled argument |
 | coordinator (census) | you, at every status | a fresh subagent per round, or the lead | same |
 | dedicated prover on an open-mathematics input | the input becomes your next item with a named route | one persistent subagent per input | same, plus lanes |
 | status | a block in the terminal and `STATE_LOG.md` | same, or a channel | same |

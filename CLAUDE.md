@@ -41,7 +41,9 @@ never goes on the open list. State it to yourself before every decision (METHODO
 - **Reviewers**: a pair per load-bearing text; lens A breaks, lens B rebuilds (5.1).
 - **Coordinator**: keeps the census and rules on class words; a fresh agent per round, or you.
 - **Closer / editor**: as needed (3.7; briefs/CLOSER_BRIEF.md, briefs/EDITOR_BRIEF.md).
-- With MAX_CONCURRENT_AGENTS = 1 you wear every hat in turn; the order of work does not change.
+- With MAX_CONCURRENT_AGENTS = 1 you wear every hat in turn; the order of work does not change. A
+  blank-context helper you spawn and wait on (a refuter, a fresh reader) is fine: concurrency stays one
+  and the fresh-context review is kept (8.2).
 
 ## Standing rules (the short list; the long one is METHODOLOGY.md)
 

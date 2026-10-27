@@ -11,6 +11,9 @@ the questions the lead asks itself are in SELF_CHECK.md; the resource defaults a
   (1), an API key (no), local CPU/GPU (light checks only), scheduler use (none). If you do not answer,
   the defaults apply and are recorded (7.21). It says what it detected and works with what is there (7.22).
 - It states the model and effort it runs as and how it will spawn helpers, and asks you to confirm.
+- A cap of one agent is read mildly: it may still spawn a blank-context helper (a refuter with no
+  memory of the proof, a fresh reader) and wait on it, so working concurrency stays one while the
+  prover/refuter separation is kept (8.2).
 
 ## It decides, then tells you
 

@@ -35,7 +35,7 @@ OUTPUT_CAP: default                         # default = the model's maximum outp
 
 ## 3. Parallelism
 
-MAX_CONCURRENT_AGENTS: 1                    # agents running at once INCLUDING the main one; 1 = you alone, no subagents. The one question asked up front.
+MAX_CONCURRENT_AGENTS: 1                    # agents WORKING at once INCLUDING the main one; 1 = you alone. Still fine at 1: a blank-context helper (a refuter, a fresh reader) you spawn and WAIT on, so concurrency stays one in practice. The one question asked up front.
 LANES_PER_PIECE: 0                          # API prove lanes per open piece; 0 when API_KEYS = no
 LANES_PER_BIG_ITEM: 0                       # standing lanes on an item far from proof (2–6 with keys); the level never decays
 API_CONCURRENT_LANES: 0                     # total concurrent API lanes you allow (spend)
