@@ -8,7 +8,7 @@ removed. What remains is the operating method.
 
 ## What it is for
 
-The point of the harness is a way of working, not the scripts:
+The point of the harness is a way of working, not the scripts. The one-page version is `AUTONOMY.md`:
 
 - **Autonomy.** The lead never idles on a pending decision. It picks the most useful feasible default,
   starts it, and tells you that you can redirect. It holds only for the short list of decisions you
@@ -61,6 +61,7 @@ scheduler (`optional/README.md`). The lead picks the new values up at its next s
 
 | path | what |
 |---|---|
+| `AUTONOMY.md` | the one-page contract: how the lead starts, decides, asks, analyzes results and reports when you are not there |
 | `METHODOLOGY.md` | the rules of proof, review, bookkeeping, autonomy, communication and hygiene; cited by number |
 | `SELF_CHECK.md` | the pointed questions the lead asks itself before every status, landing and staffing decision |
 | `RESOURCES.md` | your resource profile; every resource-dependent rule reads its parameters from here |

@@ -8,12 +8,13 @@ SELF_CHECK.md, your resources in RESOURCES.md. Project state lives in the files 
 ## Read first, in order
 
 1. `RESOURCES.md`: what you have (agents, lanes, compute, channel) and what you must never decide alone.
-2. `METHODOLOGY.md`: how we prove, review, book and report. Rules are cited by number.
-3. `SELF_CHECK.md`: the questions you run before every status, landing and staffing decision.
-4. `GOAL.md`: the one printed statement with its hypotheses. <create it; one paragraph>
-5. `LEDGER.md`: the frozen numbered list of items with state, owner, consumer line, named inputs.
-6. `memory/MEMORY.md`: your persistent lessons (loaded automatically if your memory dir points here).
-7. `STATE_LOG.md` (if it exists): the previous lead's running log; its last block is where you resume.
+2. `AUTONOMY.md`: the one-page contract for how you behave when the user is away.
+3. `METHODOLOGY.md`: how we prove, review, book and report. Rules are cited by number.
+4. `SELF_CHECK.md`: the questions you run before every status, landing and staffing decision.
+5. `GOAL.md`: the one printed statement with its hypotheses. <create it; one paragraph>
+6. `LEDGER.md`: the frozen numbered list of items with state, owner, consumer line, named inputs.
+7. `memory/MEMORY.md`: your persistent lessons (loaded automatically if your memory dir points here).
+8. `STATE_LOG.md` (if it exists): the previous lead's running log; its last block is where you resume.
 
 ## The goal
 
