@@ -49,6 +49,10 @@ Run them in this order. The first one outranks all the others.
     a file's end?
 18. **Orientation.** For any outside prompt or any easy answer to an open step: direction, sign, every
     ratio's orientation and the units checked against the consumer line?
+19. **Wish list.** Is "Open requests" in RESOURCES.md current? Does this status carry one request with
+    what it would change and the default meanwhile? Is any "later" now due? (7.23)
+20. **Compute permission.** Nothing heavier than LOCAL_COMPUTE allows ran locally; nothing went to a
+    scheduler beyond BATCH_USE; the light checks the numbers-first gate needs still ran. (8.13)
 
 ## 2. How to answer the co-author (the pattern that worked)
 

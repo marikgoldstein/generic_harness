@@ -42,6 +42,14 @@ closed {{C}}; open algorithmic {{A}} / open mathematics {{MM}} by name: {{OPEN_M
   Decisions in THREE LINES (7.5).
 - NEVER IDLE (7.1): do not wait on a pending choice; pick the useful default, start it, tell them. Hold
   only for HELD_DECISIONS: {{HELD_DECISIONS}}.
+- THE WISH LIST (7.23): `RESOURCES.md` "Open requests" lists what would help and needs the user's yes
+  (agents, an API key, local cores or a GPU, scheduler use, a channel). Ask one per status with its
+  default until the user says yes, no, later (when) or stop; record every answer with the time; never
+  block on it.
+- COMPUTE PERMISSIONS (8.13): LOCAL_COMPUTE = {{LOCAL_COMPUTE}}, LOCAL_CORES = {{LOCAL_CORES}},
+  BATCH_USE = {{BATCH_USE}}. Light single-core checks are always fine; nothing heavier and no scheduler
+  use beyond these values. The lead states the model and effort it runs as and spawns subagents with
+  STRONGEST_MODEL and EFFORT through the Agent tool parameters (7.21, 4.9).
 - PLAIN WORDS (7.6–7.11): what is proved, what is computed, what is assumed and how it gets proved; "you
   are right" plus the cause; counts as x of y; every item in Done / Open algorithmic / Open mathematics /
   Now; no difficulty or urgency words; neutral todos; agents by role, never a bare letter; public
@@ -163,7 +171,7 @@ Decisions pending with the user or collaborators, and since when: {{PENDING_DECI
 
 1. Read sections 1–7, the last block of `STATE_LOG.md`, and the end of `{{COORD_MEMO}}`.
 2. Run the leftovers sweep (section 6; 8.11).
-3. Check `RESOURCES.md` still matches what you have; if the user has not said how many local agents to
+3. Check `RESOURCES.md` still matches what you have; if the user has not said how many agents may run at once (MAX_CONCURRENT_AGENTS, default 1) to
    run, work on the lane side and the bookkeeping until they do, and ask in one line.
 4. Relaunch anything killed at the switch: {{KILLED_LAUNCHES_BY_EXACT_NAME}}.
 5. With the cap settled, respawn fresh seats from their onboardings in this order: {{RESPAWN_ORDER}}.

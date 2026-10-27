@@ -494,7 +494,7 @@ goes to lanes where lanes exist. Resources are printed per open item in every st
 m"); an open item or open-mathematics input at zero is flagged and staffed the same turn.
 8.2 MAX_CONCURRENT_AGENTS is soft in the transient sense: an overshoot by one or a few while a hand-over or
 respawn executes is fine; the steady count is what the cap bounds. The user may change the cap at any
-time; record each change with its time.
+time (e.g. "cap 4"); record each change with its time.
 8.3 Holding and watching roles (a text held with nothing owed; a job watched for hours) are stood down
 with a clean hand-back and a RESPAWN TRIGGER in the onboarding (the exact file or landing that
 re-opens the role); the lead tests the triggers at each status.

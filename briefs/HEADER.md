@@ -39,3 +39,8 @@ SAFETY AND HYGIENE (every agent, every turn; METHODOLOGY 6.3, 6.4, 10.1–10.10)
   (0.1), never kept in chat.
 
 ---
+- COMPUTE PERMISSION (8.13): LOCAL_COMPUTE = {{LOCAL_COMPUTE}} (light = short single-core checks under
+  the caps only; cpu / cpu+gpu = up to {{LOCAL_CORES}} cores or the GPU, only because RESOURCES.md says so);
+  BATCH_USE = {{BATCH_USE}} (no = never prepare or submit scheduler jobs; recommend = prepare ONE script
+  and a queue line for the user; agent = you may submit). Never assume more; a step that needs more is
+  reported to the lead, who asks the user and records the answer in RESOURCES.md.
