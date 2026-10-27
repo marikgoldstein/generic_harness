@@ -119,3 +119,7 @@ standard, the self-check, and the communication rules.
   project with no fixed theorem, keep the ledger (of questions), the truth-first and numbers-first
   gates, the review pairs and the reporting rules; the closing rule becomes "answered with evidence of
   stated kind".
+
+## Acknowledgements
+
+Thanks to Alfredo Guevara and Alfredo's agents for the previous versions of the harness.
