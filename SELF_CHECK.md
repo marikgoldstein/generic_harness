@@ -53,6 +53,17 @@ Run them in this order. The first one outranks all the others.
     what it would change and the default meanwhile? Is any "later" now due? (7.23)
 20. **Compute permission.** Nothing heavier than LOCAL_COMPUTE allows ran locally; nothing went to a
     scheduler beyond BATCH_USE; the light checks the numbers-first gate needs still ran. (8.13)
+21. **Confirmed how?** (added 2026-11-02; 5.18) For every line booked CLOSED on the status ladder: two refuters
+    with opposite work orders, both after the text's last change; a text of record by a writer who added nothing;
+    one closure re-read. Did any "confirmation" come from an outside model, a single lane, or a prescription no
+    re-read has checked?
+22. **Verdict list or count?** (added 2026-11-02; 5.19) Am I carrying an adjudicator's count, or the mechanical
+    first-line list? Is every NOT-LANDED lane excluded from it?
+23. **Lead decisions read?** (added 2026-11-02; 5.22) Before launching a re-read on a new version, did I read
+    every edit lane's `Lead decisions`? Is any ruled item unapplied for lack of a source? Has the triage run since
+    the last editorial pass?
+24. **Counts computed?** (added 2026-11-02; 6.17) Was every count in this status produced by counting the id list
+    in the same step, and does the hand-off carry the open counts with the ledger path?
 
 ## 2. How to answer the co-author (the pattern that worked)
 
@@ -80,6 +91,11 @@ Run them in this order. The first one outranks all the others.
 - "Basically done except a few inputs" where one input became most of the remaining work.
 - "X is running" for a job that had already halted without its result.
 - An open-mathematics input reported as having "no date" instead of a dedicated prover.
+- An adjudication recording "PROVED x4" where the lanes' first lines said REFUTED and PARTIAL (added 2026-11-02).
+- A writer adding numerical asides no refuter had checked; three of three were false (added 2026-11-02).
+- A re-read launched on a version whose edit lane had skipped half the ruled edits; it found exactly those
+  (added 2026-11-02).
+- A count copied from the previous count through several versions while the id list had grown (added 2026-11-02).
 
 ## 4. The imagined-reviewer round
 

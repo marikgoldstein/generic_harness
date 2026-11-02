@@ -17,6 +17,10 @@ never pasted from an older brief (METHODOLOGY 6.11).
 | `CLOSER_BRIEF.md` | pre-checks an item's files in parallel with its review |
 | `EDITOR_BRIEF.md` | writes the public document, outside the proving staff |
 | `SUCCESSOR_BRIEF.md` | the short brief for the next seat of a persistent role |
+| `BUILDER_BRIEF.md` | (added 2026-11-02) turns one wave's adjudication into the next wave's lane specs: targets verbatim, inputs with status words, absolute ranged attachments, paths tested, one spec file per group (12.1) |
+| `ADJUDICATOR_BRIEF.md` | (added 2026-11-02) reads every landed output of a wave: the mechanical first-line verdict list first, then proposed rulings, ledger deltas, the computed count, the next lane list (5.19) |
+| `WRITER_BRIEF.md` | (added 2026-11-02) writes the text of record for a CLOSED-READY line: the proof verbatim with the refuters' minors applied and marked, nothing of its own; stops on anything statement-level (5.20) |
+| `EDIT_LANE_BRIEF.md` | (added 2026-11-02) turns a ruling into a byte-exact Old/New edit list with `STATUS: EDITS n` and `Lead decisions`, applied by script to a copy (5.22; `templates/EDIT_LIST.md`) |
 
 ## How a brief is built
 

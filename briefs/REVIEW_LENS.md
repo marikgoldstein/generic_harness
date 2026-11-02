@@ -72,3 +72,34 @@ Read the stop reason first (4.6). Both APPROVED or AWM: PAIRED. One NOT, all blo
 lens approving: PASSED with an erratum, a ledger line and one diff lens (5.4). One NOT with any
 MATHEMATICAL item: not a pass; new version and re-pair (5.6). Both NOT with any MATHEMATICAL item:
 rejected, re-cut. Relay every blocking item, numbered, counted against the file (5.7).
+
+## Refuter pair with opposite work orders, and the closure re-read (added 2026-11-02; METHODOLOGY 5.18, 5.19)
+
+For projects on the status ladder, the pair that confirms a prover's text is two REFUTERS. Both get the prover's
+task (statement verbatim, allowed inputs) and files, plus the prover's output attached last. They never see each
+other. They read the same target from both ends: refuter 1 starts at the closing statement and works back to the
+inputs; refuter 2 starts at the inputs and works forward. Shared preamble as above; task text:
+
+> RE-CHECK ({{ITEM}}). The attached text claims to prove "{{STATEMENT_VERBATIM}}" from the inputs {{INPUTS}}.
+> Refute first: look for a false step, a step that uses more than its cited input states (an over-read), a
+> missing case, a constant that depends on a parameter it may not depend on, a circularity with the target, an
+> unprinted step smuggled in. Then, only if nothing refutes, confirm. First line `VERDICT: APPROVED |
+> APPROVED_WITH_MINOR | NOT APPROVED` (a project may use CONFIRMED / CONFIRMED_WITH_MINOR / GAP / REFUTED); then
+> numbered findings with file:line, each marked blocking or minor; for a gap, the exact missing statement in a
+> form that could become a ledger line. You block only by exhibiting a false displayed sentence.
+
+The CLOSURE RE-READ runs once, on the writer's text of record (briefs/WRITER_BRIEF.md):
+
+> CLOSURE RE-READ ({{ITEM}} {{VERSION}}). Attached: the text of record, its `Changes` and `Lead decisions`
+> sections, and the two refuter outputs. (1) Check that every minor the writer lists was applied as stated and
+> that nothing else changed. (2) Re-read the whole text as a referee. (3) Rule on every item the writer stopped
+> on. First line `VERDICT:` as above; then REQUIRED items, each marked editorial, statement-level or
+> hypothesis-level, with file:line; then MINOR items.
+
+After the re-read lands (the lead): APPROVED, or APPROVED_WITH_MINOR with editorial items only → the lead applies
+them as one-clause edits in a new version whose header names the lane and the findings, and books the line CLOSED
+with the chain (prover, refuter 1, refuter 2, writer, re-read) named. Statement-level REQUIRED items → named
+clauses through an edit lane that carries the ruling and the sources (briefs/EDIT_LANE_BRIEF.md); hypothesis-level
+→ exactly one more re-read; NOT APPROVED → repair, and after two failed repairs a fresh prover (5.21). One OK plus
+one OK-with-clerical-fixes among the refuters is a confirmation when neither names a false displayed sentence
+(5.19).

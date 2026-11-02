@@ -82,6 +82,34 @@ public document, outside the proving staff. In the smallest profile one agent pl
 MEMO: an agent's append-only state file with a TO RESUME section at its end. ONBOARDING: the file a
 successor reads first.
 BOOKING: the lead's entry in the ledger that a result is of record.
+AXES of a ledger line (added 2026-11-02): (1) the STATUS axis, what is proved; (2) the CONSUMPTION axis, what
+consumes the line and in which form; (3) the TEXT axis, which written text is the TEXT OF RECORD. "Closed" on
+one axis says nothing about the others.
+TEXT OF RECORD: the one written proof text a line's status rests on: the prover's proof verbatim with the
+confirming lenses' minors applied and marked, and nothing else.
+STATUS LADDER (optional; finer than OPEN / DEPENDENT / CLOSED, for projects that want the confirmation state
+visible on the line): OPEN; HYPOTHESIS (named, no proof attempted); PRINTED / SKETCHED / ASSERTED (what the
+literature gives, graded by whether the proof is printed and legible, only sketched, or only asserted);
+PROVED-SINGLE (one lane or agent; a claim, not a result); DERIVED rel. {named inputs}; CLOSED-READY (two
+adversarial confirmations exist; a text of record and one closure re-read are owed); CLOSED rel. {named inputs}
+(numbered in the tally); VERIFIED (two adversarial confirmations postdating the last change, or a printed source
+checked at the page).
+REFUTER: a lens told to refute first (a false step, an over-read of an input, a missing case, a constant
+depending on a parameter it may not depend on, a circularity with the target, an unprinted step smuggled in) and
+to confirm only when nothing refutes. Two refuters on one text take OPPOSITE WORK ORDERS: they read the same
+target from both ends.
+CLOSURE RE-READ: one lens on the text of record after the writer: it checks that the minors were applied and
+nothing else changed, re-reads as a referee, and rules on every item the writer stopped on.
+WRITER: the agent that produces the text of record. It adds nothing of its own.
+EDIT LIST: a byte-exact list of Old/New blocks against an attached text, headed `STATUS: EDITS n`, with a
+`Lead decisions` section for anything the lane could not place; applied by script to a copy, never by hand and
+never in place. EDIT LANE: the lane or agent that produces one.
+WAVE: one round of the pipeline of section 12: a builder, then provers, refuters and readers in parallel, then
+one adjudicator, then the lead's rulings, the writers, the closure re-reads and the edit lanes.
+BUILDER: the agent that turns an adjudication's proposals into lane specs. ADJUDICATOR: the agent that reads
+every output of a wave and writes the mechanical verdict list first, then its interpretation, the ledger deltas,
+the count and the next wave's lane list.
+PERMANENT AGENT: a persistent agent that holds one line across waves, with its own lanes and memo.
 
 ---
 
@@ -111,6 +139,13 @@ mathematics m".
 the change with its cause.
 1.10 A census move (OPEN to CLOSED, or back) is booked only when every gate is met by a file on disk,
 named exactly and quoted. Correct the count the moment a rule shows it was wrong, even upward.
+
+1.11 (added 2026-11-02) Give every ledger line its three AXES: status, consumption, text of record (glossary).
+Book "closed" per axis; a line CLOSED as mathematics whose text of record still carries provisos says so. (A
+closure booked from verdict tables alone turned out not to be a printable proof; the text axis makes that gap
+visible on the line.)
+1.12 (added 2026-11-02) Number the CLOSED tally. Every hand-over and every status carries the open counts and the
+ledger's path. "0 open" on a build means the build is clean, not that the proof is finished; say which.
 
 ---
 
@@ -159,6 +194,19 @@ attachable pieces and a coverage note (COVERED / PARTIAL / NOT FOUND, with theor
 consumer's actual use before attacking Lemma X.
 2.11 A definition line that admits two readings with different truth values is read by the item's
 owner, in writing, before provers pose on it; numerics on the other reading are information about a model.
+
+2.12 (added 2026-11-02) GRADE THE LITERATURE like everything else: PRINTED when the display is printed and
+legible (cite page and line), SKETCHED when the proof is only sketched, ASSERTED when it is only claimed. A
+printed step that does not follow is a gap line of its own with a replacement item. Read at the page image, never
+from extracted text (formulas garble in extraction).
+2.13 (added 2026-11-02) TWO BLIND READERS FOR IMAGES. Anything read off a page image (a garbled display, a
+constant, an index) is a claim until a second reader, who has not seen the first reading, agrees glyph for glyph.
+Only then may a grade or a digit change on it.
+2.14 (added 2026-11-02) WHAT A NUMERICAL CERTIFICATION CERTIFIES: that the displayed inequality holds at the
+stated constants for the stated parameter set. It does not certify uniformity in a parameter it did not scan, a
+reading of the print, or a hypothesis the computation assumed; a certified item closes rel. those named inputs
+like any other. Carry every constant with its dependence list (what it depends on, what it is uniform in); the
+closure re-read re-derives them, and its check is "the numbers of record are what the proof gives".
 
 ---
 
@@ -273,6 +321,25 @@ the prompt's target. An outside answer that makes an open step easy gets the sam
 before it is reported as progress. Freeze the content at a fixed time and send with an "as of" note;
 later results go as a separate addendum.
 
+4.19 (added 2026-11-02) ATTACH BY ABSOLUTE PATH, and dry-run the build from the SAME directory the runner uses;
+test every attachment path for existence before the run. (A relative path passed a dry-run from one directory and
+failed in the runner's; a spec that named a future file under a guessed name failed the whole build with no
+output.) Never guess the name of a file a writer has yet to produce: instantiate the spec when the file exists.
+4.20 (added 2026-11-02) OUTPUT-CAP FLOORS. A lane that returns no text with the stop reason "output limit" has
+spent its budget on reasoning: rebuild it at a higher cap, never retry at the same one. Give edit and repair lanes
+a floor well above a prover's typical need (one project used 48k, and 64k to 96k when the text was over 50 KB or
+the list long).
+4.21 (added 2026-11-02) ONE RUNNER PER GROUP where the runner processes its groups sequentially: several groups in
+one call serialise, and the later ones sit idle. Read every landed verdict for "cut at" or "ends at line N"
+phrases before ruling: a text cut by the attachment cap produces a GAP that is the builder's, not the proof's.
+4.22 (added 2026-11-02) OUTSIDE MODELS. An answer from a model outside the lane system is a CLAIM until two readers
+confirm it from the record text, never from the answer; it is a third voice beside a refuter pair, never a
+substitute for a refuter. Packets to it carry definitions VERBATIM from the source (a lead's paraphrase misled an
+outside prover twice), written by a top-effort writer and checked by a referee before sending; no identifiers,
+names, paths or keys; when the record has two objects under one name, the packet says which. Check the run's
+output flag (zero output; partial with reasoning at the cap) before reading its answer, and rerun with a larger
+cap.
+
 ---
 
 ## 5. Review
@@ -330,6 +397,38 @@ spanning the domain, including one beyond the formula's domain, before a full ru
 5.17 Nothing is booked on a NOT. A lens's PROPOSED constant or formula gets the numbers check before
 adoption. A one-lens confirmation is not a closure.
 
+5.18 (added 2026-11-02) CLOSURE BY ADVERSARIAL CONFIRMATION (for projects on the status ladder). A line is CLOSED
+when: (i) a prover's text exists; (ii) two REFUTERS with opposite work orders returned APPROVED or
+APPROVED_WITH_MINOR on it, both postdating its last change; (iii) a WRITER produced the text of record (the proof
+verbatim, the refuters' minors applied and marked, nothing of the writer's own); (iv) one CLOSURE RE-READ of that
+text returned APPROVED_WITH_MINOR or better. A refuter blocks only by exhibiting a false displayed sentence. Fixes
+the re-read prescribes at statement level are applied as NAMED CLAUSES ("rel. (H-k)"), never as silent weakening;
+a hypothesis-level change costs exactly one further re-read; an editorial change costs none and goes to an edit
+lane. No line rises above DERIVED while any input is a HYPOTHESIS.
+5.19 (added 2026-11-02) THE JUDGE LOOP. One APPROVED plus one APPROVED-with-clerical-fixes is a confirmation when
+neither names a false displayed sentence; the clerical items become an edit list (5.4 is the pair form of the same
+rule). Disagreement is ADJUDICATED, not re-run: one adjudicator writes the mechanical list of first-line verdicts
+verbatim before any interpretation, and the lead rules on the ledger with that list attached; an adjudicator's
+count is never carried without it (one adjudication recorded "PROVED x4" where the lanes had said REFUTED and
+PARTIAL). Grade words are never arguments; a lens's derivation is. Re-reads are kept for two cases only: a
+hypothesis-level change, or a text whose constants were re-derived.
+5.20 (added 2026-11-02) THE WRITER ADDS NOTHING. Every number in a text of record is a number a refuter confirmed;
+a writer's own parenthetical, example or remark is a defect (a writer once added three false numerical asides,
+and the closure re-read caught them). The writer stops, marked "lead decision", on anything that would change the
+statement, an input or a constant's dependence, and lists every minor it applied with the old and the new text.
+5.21 (added 2026-11-02) A PRESCRIPTION IS A CLAIM. A lens's prescribed replacement statement is applied verbatim
+but stays PROVED-SINGLE until the next re-read checks it; never promote it on the strength of the prescribing
+lane. After two failed repair passes on one text, stop patching: a fresh prover from the corrected hypotheses,
+then two refuters (chains of prescriptions accumulate defects; 4.10 gives the general form).
+5.22 (added 2026-11-02) EDIT LANES AND TRIAGE. Before a re-read is launched on a new version, read the edit lane's
+`Lead decisions`: an item "not applied: source not in the excerpts" is a GAP in waiting, so run the repair again
+with the source attached, and attach every file a ruling cites when the lane is built (the ruling's words are not
+enough to write the New text). After every editorial pass, one triage agent classifies every `Lead decisions`
+item of every edit output against its re-read as REQUIRED / OPTIONAL / DONE before any item books at the new
+version; REQUIRED items at hypothesis level become named clauses and the ledger line is amended in the same step.
+An APPROVED_WITH_MINOR re-read can carry REQUIRED statement-level items: rule on each explicitly at closure, never
+leave them to a wording-only lane.
+
 ---
 
 ## 6. Bookkeeping
@@ -379,6 +478,14 @@ launcher's "launch at" line), never from the brief's existence or a schedule.
 (object, script, line); a digit computed at another instance than the consumer's is robustness
 information, never the row's digit. A truth digit whose provenance turns out to be a different object
 is re-labelled EVIDENCE the same hour.
+
+6.17 (added 2026-11-02) COUNTS ARE COMPUTED, NEVER COPIED: every count line is produced by counting the id list in
+the same step (a one-line script over the list), never typed from the previous count (a copied "12" stood for a
+13-id list through several versions). 6.13 says who computes a count; this says how.
+6.18 (added 2026-11-02) EDIT LISTS ARE APPLIED BY SCRIPT to a copy of the tree, never by hand and never in place;
+each Old must occur exactly once (assert it); the result is composed, census-checked (duplicate labels, dangling
+references, process words) and logged with its checksum; hunks are verified against the CURRENT tree before they
+are sent (a hunk cut against an older version fails to apply).
 
 ---
 
@@ -485,6 +592,12 @@ written to RESOURCES.md with its time; a "later" is re-asked at the time or even
 "stop" is never asked again unless the user raises it. Asking never blocks: the default applies until
 the answer arrives. (Conservative defaults keep the harness safe anywhere; the wish list keeps it from
 quietly running below what the user would have allowed.)
+
+7.24 (added 2026-11-02) PARALLELISM CHECK on a fixed cadence (every 30 minutes by a timer or cron while work is
+live): inventory the running agents, lanes and memory in use; compare with the plan's list of what can run in
+parallel; launch every runnable item inside the standing caps; write one status line stamped by the clock; post
+only if something launched or a decision blocks. Keep a method-lessons file (dated, append-only, each entry
+citing its episode) and consult it before every launch and before every question to the user.
 
 ---
 
@@ -601,6 +714,17 @@ an enforced memory cap (`ulimit -v`) and a wall-clock timeout, single process un
 10.10 Every recursive or long-running shell command is bounded (`timeout`); every background launch
 goes through the harness's tracked background mechanism, never a trailing `&`.
 
+10.11 (added 2026-11-02) Device files only as redirect targets, never as a file argument (a null device was
+copied over, and later removed, by agents cleaning up). No process substitution; no placeholder commands (a
+command written to be filled in later runs as written).
+10.12 (added 2026-11-02) `test -e` before creating any file; one process per job (no pools, no `-j` builds,
+`OMP_NUM_THREADS=1`); writes capped per tool call (part files, then `cat`; the cap is set in the brief);
+downloaded files read only with `python3 -I` from their own directory (2.9).
+10.13 (added 2026-11-02) Never edit a shell script while an instance of it is running: the shell reads the file
+lazily and the running instance misparses its tail. Patch a copy under a new name, or wait for it to finish.
+10.14 (added 2026-11-02) REPORT EVERY SLIP AT ONCE, in the report and to the lead: what ran and what it touched;
+repair only what is safe and obvious; the lead records it.
+
 ---
 
 ## 11. Formalization (optional; when a proof assistant is in use)
@@ -616,8 +740,70 @@ remote container for compilation.
 
 ---
 
+## 12. Waves: the pipeline shape (optional; when lanes or several agents exist)
+
+12.1 (added 2026-11-02) RUN IN WAVES, NOT LEMMA BY LEMMA. One wave = a BUILDER turns the last adjudication's
+proposals into lane specs (targets verbatim, inputs with their status words, attachments by file:line, every path
+tested, prompt sizes checked) → provers, refuters and readers run in parallel, with any outside model on the same
+packets → one ADJUDICATOR reads everything and writes the mechanical verdict list, the rulings it proposes, the
+ledger deltas, the count and the next wave's lane list → the lead rules, launches the writers, then the closure
+re-reads and edit lanes. (Every open front moves at once, and a wrong belief is caught by the whole wave rather
+than after three dependent texts were built on it.)
+12.2 (added 2026-11-02) COARSE TO FINE. The first wave on a line produces a decomposition (named hypotheses and
+the implication between them); later waves prove, refute or retarget the pieces; writers and re-reads come last.
+Nothing is polished before the picture is in focus everywhere.
+12.3 (added 2026-11-02) WHOLE-CONTEXT WORK LOCAL, ISOLATED MATHEMATICS IN LANES: local agents extract statements,
+assemble, split a lemma into sub-lemmas and apply fixes; lanes prove and refute one statement each, from attached
+text only.
+12.4 (added 2026-11-02) PERMANENT AGENTS on the lines that stay open across waves, each with its own lanes and
+memo, so nothing is re-derived from scratch. Each writes a memo entry, a refuter spec and a ping line per result;
+at every parallelism check (7.24) the lead runs the new refuter specs and writes the verdict lines back into the
+agent's verdict file.
+12.5 (added 2026-11-02) TWO INDEPENDENT CONFIRMATIONS, OPPOSITE WORK ORDERS, for every text that enters the
+record (5.18); an outside model's agreement is a third voice, never a substitute. Mechanical refuter specs can be
+generated from the prover spec (its files plus the prover's output) whenever lanes are idle.
+12.6 (added 2026-11-02) CROSS-CAMPAIGN TRANSFER: a lemma, bound or defect found in one campaign that bears on
+another is written to the other's inbox the same turn, with a one-line ping (7.15 gives the general form).
+
+---
+
+## 13. Public text that can be extracted in pieces
+
+13.1 (added 2026-11-02) Every object is introduced in a labelled environment (definition, convention,
+hypothesis) and referred to only by cross-reference; no "above", "below", "earlier", "the usual". Every
+dependency is a cross-reference to a label; conventions and notation paragraphs are labelled too, with their own
+counter.
+13.2 (added 2026-11-02) Hypotheses are named items, written once as labelled statements and listed per theorem
+("rel. {(H-1), (H-2)}"): the theorem's dependency ledger lives in the text, not only in the ledger file.
+13.3 (added 2026-11-02) Conventions sit in a conventions group at the front of each part, with a self-test that
+every convention used is in it.
+13.4 (added 2026-11-02) No process words in the typeset text: no lane ids, counts of checkers, rounds or status
+tags; open items as named hypotheses plus one "Open problems" section (EDITOR_BRIEF rule 4 is the brief form).
+13.5 (added 2026-11-02) Keep a map from ledger line to theorem label beside the document, so a line's text of
+record and a theorem's line can each be found.
+13.6 (added 2026-11-02; PROPOSED) EXTRACTION TEST: a subset of the document is self-contained when every
+cross-reference target it uses lies in the subset. A census tool that already checks duplicate labels and
+dangling references can compute the reference closure of a chosen set of sections; that makes "can this chapter
+stand alone" a mechanical check rather than a reading.
+13.7 (added 2026-11-02) THE TEXT PIPELINE: edits staged as byte-exact Old/New hunks (6.18), applied to a copy of
+the tree, composed, census-checked, built with a bounded command, and every pass logged with the checksum of the
+result; one source comment per change on its own line (a mid-line comment once swallowed three sentences);
+labels unchanged; one agent per file; new version numbers only; rulings on findings RIGHT / DONE-BEFORE / WRONG /
+RECORD / LOG and never a gap filled inside a fix pass; the open-marker count at zero before a build is called
+clean.
+
+---
+
 ## Changelog
 
 - v1: first generic edition, distilled from a running project's methodology (about eighty internal
   versions over two weeks) and its lead's memory notes. Project names, people, hosts and paths removed;
   resource-dependent numbers moved to RESOURCES.md.
+- v2 (2026-11-02): added, from a second running project's week of closing a large record: the three axes of a
+  ledger line and the status ladder (glossary; 1.11, 1.12); literature grades, two blind image readers and
+  certification semantics (2.12–2.14); lane hygiene for absolute paths, output-cap floors, one runner per group,
+  and outside models as claims (4.19–4.22); closure by adversarial confirmation, the judge loop, the writer who
+  adds nothing, prescriptions as claims, edit lanes and triage (5.18–5.22); computed counts and scripted edit
+  lists (6.17, 6.18); the parallelism check (7.24); device files, `test -e`, running scripts and slip reports
+  (10.11–10.14); waves (section 12) and extractable public text (section 13). No rule renumbered; none retired.
+  The same day's CHANGELOG.md entry lists every other file touched.

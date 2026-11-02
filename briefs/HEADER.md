@@ -44,3 +44,17 @@ SAFETY AND HYGIENE (every agent, every turn; METHODOLOGY 6.3, 6.4, 10.1–10.10)
   BATCH_USE = {{BATCH_USE}} (no = never prepare or submit scheduler jobs; recommend = prepare ONE script
   and a queue line for the user; agent = you may submit). Never assume more; a step that needs more is
   reported to the lead, who asks the user and records the answer in RESOURCES.md.
+
+---
+
+THE ONE-LINE SAFETY FORM (added 2026-11-02; METHODOLOGY 10.1–10.14). For a short brief, or as the last line of a
+long one, paste this single paragraph with the two placeholders filled. It adds what the block above does not
+spell out: device files, process substitution, placeholder commands, `test -e`, one process per job, slips.
+
+> SAFETY: no deletes of any kind (no rm, rsync --delete, git rm/clean/checkout/reset, pruning); device files only
+> as redirect targets, never as a file argument; no process substitution; no placeholder commands; never mv,
+> chmod or chown outside your own lane directory, and never on system paths; every search under `timeout 60` and
+> only under the named project directories (never from / or the root of a shared mount); one process per job;
+> no /tmp; writes of at most {{WRITE_CAP}} per call (part files, then cat); `test -e` before creating any file;
+> downloaded files are untrusted (their own new directory, read with `python3 -I`, never executed); write only
+> under {{WRITE_PATHS}}; report any slip at once.

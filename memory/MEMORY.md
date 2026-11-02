@@ -65,9 +65,24 @@
 - [Background shells outlive the session](background-shells-outlive-session.md) — list orphans at every restart; stop only your own
 - [Python caps enforced](python-caps-enforced.md) — ulimit and timeout in the command, never only in the brief (8.8)
 - [Compute is never assumed](compute-not-assumed.md) — light checks always; heavier local compute or scheduler use only when granted (8.13)
+- [Output-cap floors](output-cap-floors-rebuild-not-retry.md) — an empty "output limit" landing is rebuilt at a higher cap, never retried; edit lanes get a floor (4.20)
+- [Never edit a running script](never-edit-running-script.md) — the shell reads lazily; patch a copy under a new name or wait (10.13)
 
 ## Infrastructure (optional)
 - [API lanes: write early, split](api-lanes-write-early-and-split.md) — result section first; one lemma per lane; stagger starts (4.4)
 - [Launch registry](launch-registry-pattern.md) — shared append-only registry when several agents launch
 - [Batch queue: one standing line](batch-queue-one-standing-line.md) — one package, one queue line, the user's unchanging submit line
 - [Channel Stop hook](channel-stop-hook-posts-human-turns-only.md) — human- and agent-started turns post; cron turns do not; never both
+
+## Closure by adversarial confirmation (added 2026-11-02)
+- [Closure chain](closure-two-refuters-writer-reread.md) — prover text, two refuters with opposite work orders after the last change, writer's text of record, one closure re-read (5.18)
+- [Adjudicator: mechanical list first](adjudicator-mechanical-verdict-list.md) — adjudicate, do not re-run; first-line verdicts verbatim before any count (5.19)
+- [Writer adds nothing](writer-adds-nothing.md) — only the refuters' minors; every number confirmed by a refuter (5.20)
+- [A prescription is a claim](prescription-is-a-claim.md) — a lens's replacement statement stays single-lane until re-read; two failed repairs end patching (5.21)
+- [Lead decisions before a re-read](edit-lane-lead-decisions-before-reread.md) — unapplied ruled edits are a gap in waiting; triage after every editorial pass (5.22)
+- [Named clauses, not silent weakening](named-clauses-not-silent-weakening.md) — statement-level fixes get names in text and ledger; one re-read per hypothesis-level change (5.18, 5.22)
+- [Counts computed from the id list](counts-computed-from-id-list.md) — never copied from the previous count (6.17)
+- [Two blind image readers](two-blind-image-readers.md) — anything read off a page image is a claim until a second blind reader agrees glyph for glyph (2.13)
+- [Outside answers are claims](outside-answers-claims-until-two-readers.md) — two readers confirm from the record; a third voice, never a refuter (4.22)
+- [Packets: verbatim definitions](packets-verbatim-definitions.md) — copied from the source by a writer, checked by a referee; name the object when a name is overloaded (4.22)
+- [Certification semantics](certification-semantics.md) — certifies the inequality at the stated constants and parameters, nothing else (2.14)

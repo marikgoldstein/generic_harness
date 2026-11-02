@@ -22,3 +22,10 @@ Census: open N of M · dependent D · closed C · open algorithmic a / open math
 
 ## Struck or folded (never deleted; the label stays)
 - ITEM.xx STRUCK <when>: <reason; the consumer lines checked>
+
+## Optional lines per item (added 2026-11-02; METHODOLOGY 1.11, 5.18; for projects on the status ladder)
+- status (axis 1): OPEN | HYPOTHESIS | PRINTED / SKETCHED / ASSERTED | PROVED-SINGLE | DERIVED rel. {...} | CLOSED-READY | CLOSED rel. {...} (tally #<n>) | VERIFIED
+- consumption (axis 2): the consumer line above; consumed form = <...>
+- text of record (axis 3): <file vN> · refuter 1 <verdict, file> · refuter 2 <verdict, file> (opposite work orders; both after the text's last change) · writer <file> · closure re-read <verdict, file>
+- named clauses added at closure: rel. (<name>) <from re-read item j>; a hypothesis-level change and its one further re-read noted here
+- count line: <"open N of M" computed from the id list in the same step; the computation shown>

@@ -38,6 +38,8 @@ what it is running as and spawns any helpers with the model and effort set in `R
 - `METHODOLOGY.md`: the rules, cited by number everywhere else.
 - `SELF_CHECK.md`: the questions it asks itself before every status.
 - `RESOURCES.md`: the resource profile with its conservative defaults, and the wish list it keeps.
+- `CHANGELOG.md`: what changed in the harness, by date and file, written so a running project can adopt
+  each piece on its own.
 
 Everything else is support: `briefs/` (prompts for helpers), `memory/` (lessons it starts with),
 `tools/` (an API lane runner and audits, only if you have a key), `optional/` (a chat bridge, a batch
