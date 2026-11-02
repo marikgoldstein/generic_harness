@@ -40,6 +40,8 @@ what it is running as and spawns any helpers with the model and effort set in `R
 - `RESOURCES.md`: the resource profile with its conservative defaults, and the wish list it keeps.
 - `CHANGELOG.md`: what changed in the harness, by date and file, written so a running project can adopt
   each piece on its own.
+- `examples/`: worked examples from projects that ran on the harness, kept verbatim, each with the
+  METHODOLOGY sections it illustrates; project details there are illustrations, not rules.
 
 Everything else is support: `briefs/` (prompts for helpers), `memory/` (lessons it starts with),
 `tools/` (an API lane runner and audits, only if you have a key), `optional/` (a chat bridge, a batch

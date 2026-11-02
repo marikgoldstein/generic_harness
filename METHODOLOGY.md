@@ -110,6 +110,20 @@ BUILDER: the agent that turns an adjudication's proposals into lane specs. ADJUD
 every output of a wave and writes the mechanical verdict list first, then its interpretation, the ledger deltas,
 the count and the next wave's lane list.
 PERMANENT AGENT: a persistent agent that holds one line across waves, with its own lanes and memo.
+LINE (optional; added 2026-11-02, later): a numbered thread of items about one obstacle. It opens when a defect
+or a missing statement is found, closes when the statement that fills it is CLOSED, and may re-open. Where lines
+are used, the headline count is the number of open lines, computed from the list of line numbers (6.17).
+MISMATCH (optional status): the record proves one form of a statement and a consumer uses another. Resolved by
+proving the consumed form or re-routing the consumer to the proved form, with a mechanical check that every
+consumer is still implied (14.3).
+CONFIRMATION: a cheap computation that checks a displayed inequality at the stated parameters (evaluate both
+sides). It is EVIDENCE (2.4). CERTIFICATION: a computation that establishes the inequality over the stated
+parameter set, with a Lipschitz or interval bound controlling what happens between grid points. It is a class-(b)
+NAMED COMPUTATION with its error bound (2.15).
+CONDITIONAL-ON MARK: the list of open lines (or open items) the goal currently rests on, carried by the goal's
+statement in the ledger and removed only when the count reaches zero (1.13).
+LEAVES: the nodes of the dependency graph that nothing in the project proves: the named open hypotheses and the
+literature statements at their printed grade. The final result is relative to exactly these (14.1).
 
 ---
 
@@ -146,6 +160,12 @@ closure booked from verdict tables alone turned out not to be a printable proof;
 visible on the line.)
 1.12 (added 2026-11-02) Number the CLOSED tally. Every hand-over and every status carries the open counts and the
 ledger's path. "0 open" on a build means the build is clean, not that the proof is finished; say which.
+1.13 (added 2026-11-02, later) LINES AND THE CONDITIONAL-ON MARK. Where items are grouped into numbered LINES
+(glossary), the headline count is the number of open lines, computed from the list of line numbers every time it
+is stated; a line re-opens when a reader or a refuter finds a defect in a closed statement, and the count goes
+back up. The goal carries a CONDITIONAL-ON MARK naming every open line; it comes off at count zero. Zero is not
+the end: what remains are the LEAVES (14.1), listed in the final section of the public text with the statement
+each is used for; a clean build with zero open lines is still reported with the count and the ledger path.
 
 ---
 
@@ -207,6 +227,12 @@ stated constants for the stated parameter set. It does not certify uniformity in
 reading of the print, or a hypothesis the computation assumed; a certified item closes rel. those named inputs
 like any other. Carry every constant with its dependence list (what it depends on, what it is uniform in); the
 closure re-read re-derives them, and its check is "the numbers of record are what the proof gives".
+2.15 (added 2026-11-02, later) CONFIRMATION VERSUS CERTIFICATION (glossary). A confirmation is evidence and gates
+a proof round (2.4); a certification is a class-(b) computed input with its error bound. When the confirmation
+has passed and the certification is pending, the item that rests on it is CLOSED rel. the certification, and
+the item waiting for the run is OPEN BUT ALGORITHMIC, never open mathematics; the status says exactly what was
+and was not checked. A finite enumeration by script is run more than once, by independent routes, before its
+digit books (5.16).
 
 ---
 
@@ -339,6 +365,15 @@ outside prover twice), written by a top-effort writer and checked by a referee b
 names, paths or keys; when the record has two objects under one name, the packet says which. Check the run's
 output flag (zero output; partial with reasoning at the cap) before reading its answer, and rerun with a larger
 cap.
+4.23 (added 2026-11-02, later) PROVER OUTPUT FORMAT. A prover's text starts with its own status word on the first
+line (PROVED / PROVED-WEAKER with the exact weaker statement / PARTIAL / REFUTED), then lists the inputs it
+actually used, numbers its steps with the input each step cites, and ends with "what a referee should check
+first": the steps it considers least secure. A refuter's GAP names the missing statement in a form that can
+become a new ledger item (it is exactly a new goal, 14.4).
+4.24 (added 2026-11-02, later) EVERY BRIEF FROM THE SOURCE. The packet rule of 4.22 applies inside the project:
+every brief that quotes a target, a definition or an input is written from the source by one agent and checked
+against the source by a second before it is sent. A brief says who the agent is, what it is for, what it may and
+may not do, which files are read-only for it, and the safety rules; a short-lived agent knows nothing else.
 
 ---
 
@@ -598,6 +633,11 @@ live): inventory the running agents, lanes and memory in use; compare with the p
 parallel; launch every runnable item inside the standing caps; write one status line stamped by the clock; post
 only if something launched or a decision blocks. Keep a method-lessons file (dated, append-only, each entry
 citing its episode) and consult it before every launch and before every question to the user.
+7.25 (added 2026-11-02, later) TWO AUTONOMOUS LEADS ON ONE RESULT. When a sub-programme has its own lead, it has
+its own ledger and its own agents. The leads exchange audit findings and suggestions, numbered, through
+write-only inbox files (one per direction), with file:line evidence and a one-line ping; never instructions.
+Direction comes only from the user and the DECIDERS; a lead that wants the other's direction changed asks them.
+Every finding and every reply is a reference by number, never a memory.
 
 ---
 
@@ -794,6 +834,37 @@ clean.
 
 ---
 
+## 14. The ledger as a dependency graph (the formalizer's view)
+
+14.1 (added 2026-11-02, later) THE GRAPH. The ledger's items form a directed acyclic graph: an item's named
+hypotheses are its in-edges, its consumers are its out-edges. "CLOSED rel. named inputs" means the node is
+proved given its parents. The LEAVES are the nodes nothing in the project proves: the named open hypotheses and
+the literature statements at their printed grade. The final result is relative to exactly the leaves, and the
+ledger says which they are.
+14.2 (added 2026-11-02, later) WHAT THE GRAPH DECIDES. An item with many consumers, or one the goal's
+conditional-on mark passes through, gets the strongest checking and a permanent agent (12.4). What is left is
+the set of open nodes plus the leaves, both counted from the ledger, never estimated.
+14.3 (added 2026-11-02, later) REFUTATION PROPAGATES. When an item is refuted, or is found to prove a different
+form than a consumer uses (MISMATCH), every consumer that used it in that form is re-opened or re-routed to a
+weaker form that is proved; the resolution carries a mechanical check that every consumer is still implied (the
+consumer line quoted, 2.2). A consumer loses its "conditional on" mark on the day its parent closes, by a ledger
+entry.
+14.4 (added 2026-11-02, later; optional) THE PROOF-ASSISTANT CORRESPONDENCE, for projects that may formalize
+later: an item is a theorem statement, its named hypotheses are its arguments, its consumers are the places it
+is applied; the ledger is the set of declarations with their dependency graph; the status is the proof state
+(OPEN: no proof term; PROVED-SINGLE: an unchecked term; CLOSED rel. inputs: a body free of holes taking those
+inputs as arguments; VERIFIED: a second independent check); the leaves are the axioms the final theorem is
+relative to; the count is the number of open goals; the text of record is the frozen proof term, changed only
+by byte-exact edits approved against intention and diff (5.22); statements are frozen before proofs (a type is
+fixed before its body); a refuter's GAP is a new goal (4.23). Write the ledger so that each of these readings
+holds and a formalizer can take it line by line.
+14.5 (added 2026-11-02, later) THE CAVEAT, SAID IN EVERY HAND-OFF. There is no machine-checked kernel: inside an
+item the steps are natural language checked by adversarial reading. Two refuters can share a mistake, and
+literature is read at the page, not formalized. VERIFIED means "checked twice by independent agents after the
+last change", never "infallible"; the checking continues after the booking (5.11).
+
+---
+
 ## Changelog
 
 - v1: first generic edition, distilled from a running project's methodology (about eighty internal
@@ -807,3 +878,8 @@ clean.
   lists (6.17, 6.18); the parallelism check (7.24); device files, `test -e`, running scripts and slip reports
   (10.11–10.14); waves (section 12) and extractable public text (section 13). No rule renumbered; none retired.
   The same day's CHANGELOG.md entry lists every other file touched.
+- v2.1 (2026-11-02, later the same day): the graph view and its words, from the same project's explainer:
+  glossary (LINE, MISMATCH, CONFIRMATION / CERTIFICATION, CONDITIONAL-ON MARK, LEAVES); 1.13 (lines, the mark,
+  zero is not the end); 2.15 (confirmation versus certification); 4.23 (prover output format) and 4.24 (every
+  brief from the source); 7.25 (two autonomous leads); section 14 (the ledger as a dependency graph, the
+  proof-assistant correspondence, the caveat). The explainer itself is in examples/. Nothing renumbered or retired.

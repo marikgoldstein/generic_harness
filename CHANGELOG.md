@@ -4,6 +4,27 @@ Dated entries, newest first. Each entry is also the portable note for its change
 what information, so that a project already running on this harness can take exactly the pieces it wants.
 Everything here is generic: no field, project, person or machine is named.
 
+## 2026-11-02 (later the same day): the graph view, and an examples/ directory
+
+Source: the same project's process explainer, written by its owner for colleagues who formalize proofs. The
+abstract counterparts of its ideas were added to the rules first; the explainer itself went into `examples/`
+as an illustration (its field, models and numbers are the project's, not defaults of this harness).
+
+| what was updated | where | with what information |
+|---|---|---|
+| glossary | `METHODOLOGY.md` section G | LINE (a numbered thread of items about one obstacle; the headline count), MISMATCH, CONFIRMATION versus CERTIFICATION, CONDITIONAL-ON MARK, LEAVES |
+| lines and the mark | `METHODOLOGY.md` 1.13 | the count of open lines computed each time; re-opening; the goal's conditional-on mark; zero is not the end, the leaves remain and are listed |
+| numerics | `METHODOLOGY.md` 2.15 | confirmation (evidence) versus certification (a computed input); CLOSED rel. the certification; OPEN BUT ALGORITHMIC for the waiting item; enumerations run by independent routes |
+| provers and briefs | `METHODOLOGY.md` 4.23, 4.24 | the prover output format (status first, inputs used, numbered steps citing inputs, "what a referee should check first"; a GAP names a new item); every brief written from the source and checked by a second agent; what a brief says |
+| two leads | `METHODOLOGY.md` 7.25 | a sub-programme's own lead: own ledger and agents; numbered audit findings and suggestions through write-only inboxes, never instructions; direction from the user and deciders only |
+| the graph | `METHODOLOGY.md` new section 14 (14.1–14.5) | the ledger as a DAG (hypotheses in, consumers out, leaves); what the graph decides; refutation propagation and mismatch resolution; the proof-assistant correspondence; the caveat said in every hand-off |
+| version note | `METHODOLOGY.md` Changelog, v2.1 | the list above |
+| examples | `examples/README.md` (new); `examples/process_explainer_lattice_qft_2026-11-02.md` (new) | what the directory is, how to read it, that project details are illustrations; one project's explainer verbatim under a two-line header naming the METHODOLOGY sections it illustrates |
+| pointer | `README.md` ("Where to look") | one line to `examples/` |
+
+How to adopt: the new rules are additions tagged "(added 2026-11-02, later)"; append them under the same
+numbers. The example is optional reading; nothing in it is a default of this harness.
+
 ## 2026-11-02: closure by adversarial confirmation, waves, edit lanes, extractable public text
 
 Source: a second running project's week of closing a large proof record with API lanes, local writers,
